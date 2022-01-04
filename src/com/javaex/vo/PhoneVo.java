@@ -59,13 +59,13 @@ public class PhoneVo {
 		this.company = company;
 	}
 	
-	
+
 	// 메소드 일반
 	@Override
 	public String toString() {
 		return "PhoneVo [personId=" + personId + ", name=" + name + ", hp=" + hp + ", company=" + company + "]";
 	}
-	
+
 	public void showInfo() {
 		System.out.println(this.getPersonId()+".\t"+this.getName()+"\t"+this.getHp()+"\t"+this.getCompany());
 	}	
