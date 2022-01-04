@@ -165,12 +165,10 @@ public class PhoneDao {
 	}
 	
 	
-	public List<PhoneVo> personSelect() {
+	public List<PhoneVo> getPersonList() {
 		List<PhoneVo> pList= new ArrayList<PhoneVo>();
 		
 		this.getConnection();
-		
-		System.out.println("<1.리스트>");
 		
 		try {
 			String query= "";
@@ -194,16 +192,20 @@ public class PhoneDao {
             	pList.add(vo);
             }
             
-            for(PhoneVo pv: pList) {
-            	pv.showInfo();
-            }
-
 		} catch (SQLException e) {
 		    System.out.println("error:" + e);
 		}	
 		this.close();
 		
 		return pList;
+	}
+	
+	public void printList() {			
+		System.out.println("<1.리스트>");
+		
+		for(PhoneVo pv: this.getPersonList()) {
+			pv.showInfo();
+		}
 	}
 	
 	
@@ -246,43 +248,6 @@ public class PhoneDao {
 
             for(PhoneVo pv: pList) {
             	pv.showInfo();
-            }
-
-		} catch (SQLException e) {
-		    System.out.println("error:" + e);
-		}	
-		this.close();
-		
-		return pList;
-	}
-	
-
-	// 데이터 >> 리스트 (출력x)
-	public List<PhoneVo> getList() {
-		List<PhoneVo> pList= new ArrayList<PhoneVo>();
-		
-		this.getConnection();
-		
-		try {
-			String query= "";
-			query += " select   person_id, "; 
-			query += "          name, ";
-			query += "          hp, ";
-			query += "          company ";
-			query += " from     person ";
-
-			pstmt= conn.prepareStatement(query);
-			
-			rs= pstmt.executeQuery();
-
-            while(rs.next()) {           
-            	int personId= rs.getInt("person_id"); 
-            	String name= rs.getString("name");
-            	String hp= rs.getString("hp");
-            	String company= rs.getString("company");
-            	
-            	PhoneVo vo= new PhoneVo(personId, name, hp, company);
-            	pList.add(vo);
             }
 
 		} catch (SQLException e) {

@@ -10,7 +10,7 @@ public class TestDao {
 		
 		PhoneDao pd= new PhoneDao();
 		
-		List<PhoneVo> pList= pd.getList();
+		List<PhoneVo> pList= pd.getPersonList();
 		
 		System.out.println(pList.toString());
 
