@@ -5,7 +5,7 @@
 <%@ page import="com.javaex.vo.PhoneVo" %>   
 <%
 	PhoneDao pd= new PhoneDao();
-	List<PhoneVo> pList= pd.getList();
+	List<PhoneVo> pList= pd.getPersonList();
 %>    
    
 <!DOCTYPE html>
