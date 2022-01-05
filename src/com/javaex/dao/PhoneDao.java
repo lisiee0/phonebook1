@@ -57,6 +57,32 @@ public class PhoneDao {
 	}
 	
 	
+	
+	public void personInsert(PhoneVo pv) {
+
+		this.getConnection();
+		
+		try {
+			String query= "";
+			query += " insert into person ";
+			query += " values(seq_person_id.nextval, ?, ?, ?) ";
+		
+		    pstmt= conn.prepareStatement(query);
+		    
+		    pstmt.setString(1, pv.getName()); // name
+		    pstmt.setString(2, pv.getHp()); // hp
+		    pstmt.setString(3, pv.getCompany()); // company		   
+		    
+		    int count= pstmt.executeUpdate();	    
+		    		   	    
+		    System.out.println("["+count+"건 등록되었습니다.]");
+		        	    
+		} catch (SQLException e) {
+		    System.out.println("error:" + e);
+		} 
+		this.close();
+	}
+	
 	public void personInsert() {
 		List<PhoneVo> pList= new ArrayList<PhoneVo>();
 		
