@@ -222,5 +222,42 @@ public class PhoneDao {
 		
 		return pList;
 	}
+	
+	public PhoneVo getPerson(int id) {
+		PhoneVo pv= null;
+		
+		this.getConnection();
+		
+		try {
+			String query= "";
+			query += " select   person_id, "; 
+			query += "          name, ";
+			query += "          hp, ";
+			query += "          company ";
+			query += " from     person ";
+			query += " where    person_id= ? ";
+
+			pstmt= conn.prepareStatement(query);
+			
+			pstmt.setInt(1, id);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {           
+            	int personId= rs.getInt("person_id"); 
+            	String name= rs.getString("name");
+            	String hp= rs.getString("hp");
+            	String company= rs.getString("company");
+            	
+            	pv= new PhoneVo(personId, name, hp, company);
+            }
+
+		} catch (SQLException e) {
+		    System.out.println("error:" + e);
+		}	
+		this.close();
+
+		return pv;
+	}
 }
 
