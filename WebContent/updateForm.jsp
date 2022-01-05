@@ -1,5 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<% 
+	String name= request.getParameter("name");
+	String hp= request.getParameter("hp");
+	String company= request.getParameter("company");
+	String id= request.getParameter("id");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +24,10 @@
 	</p>
 	
 	<form action="./update.jsp" method="get">
-		이름(name): <input type="text" name="name" value=""> <br>
-		핸드폰(hp): <input type="text" name="hp" value=""> <br>
-		회사(company): <input type="text" name="company" value=""> <br>
-		코드(id): <input type="text" name="id" value=""> <br>
+		이름(name): <input type="text" name="name" value="" placeholder="<%=name%>"> <br>
+		핸드폰(hp): <input type="text" name="hp" value="" placeholder="<%=hp%>"> <br>
+		회사(company): <input type="text" name="company" value="" placeholder="<%=company%>"> <br>
+		코드(id): <input type="text" name="id" value="" placeholder="<%=id%>"> <br>
 		<button type="submit">수정</button>
 	</form>
 	
