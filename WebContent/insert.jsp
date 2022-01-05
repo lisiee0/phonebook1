@@ -4,6 +4,10 @@
 	String name= request.getParameter("name");
 	String hp= request.getParameter("hp");
 	String company= request.getParameter("company");
+	
+	System.out.println(name);
+	System.out.println(hp);
+	System.out.println(company);
 %>
 
 <!DOCTYPE html>
@@ -13,6 +17,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	저장 가능
+	저장 기능
 </body>
 </html>
