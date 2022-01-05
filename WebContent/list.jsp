@@ -43,5 +43,7 @@
 	<%
 	}
 	%>
+	
+	<a href="http://localhost:8088/phonebook1/writeForm.jsp">전화번호 등록폼</a>
 </body>
 </html>
