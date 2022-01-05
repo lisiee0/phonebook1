@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.javaex.vo.PhoneVo;
 
@@ -16,7 +15,6 @@ public class PhoneDao {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	public Scanner sc= new Scanner(System.in);
 	
 	private String driver= "oracle.jdbc.driver.OracleDriver";
 	private String url= "jdbc:oracle:thin:@localhost:1521:xe";
@@ -57,11 +55,10 @@ public class PhoneDao {
 	}
 	
 	
-	
 	public void personInsert(PhoneVo pv) {
-
-		this.getConnection();
 		
+		this.getConnection();
+
 		try {
 			String query= "";
 			query += " insert into person ";
@@ -72,43 +69,6 @@ public class PhoneDao {
 		    pstmt.setString(1, pv.getName()); // name
 		    pstmt.setString(2, pv.getHp()); // hp
 		    pstmt.setString(3, pv.getCompany()); // company		   
-		    
-		    int count= pstmt.executeUpdate();	    
-		    		   	    
-		    System.out.println("["+count+"건 등록되었습니다.]");
-		        	    
-		} catch (SQLException e) {
-		    System.out.println("error:" + e);
-		} 
-		this.close();
-	}
-	
-	public void personInsert() {
-		List<PhoneVo> pList= new ArrayList<PhoneVo>();
-		
-		this.getConnection();
-		
-		sc.nextLine(); // 개행문자
-		System.out.println("<2.등록>");
-		System.out.print(">이름: ");
-		String name= sc.nextLine();
-		System.out.print(">휴대전화: ");
-		String hp= sc.nextLine();
-		System.out.print(">회사전화: ");
-		String company= sc.nextLine();
-		
-		pList.add(new PhoneVo(name, hp, company));
-		
-		try {
-			String query= "";
-			query += " insert into person ";
-			query += " values(seq_person_id.nextval, ?, ?, ?) ";
-		
-		    pstmt= conn.prepareStatement(query);
-		    
-		    pstmt.setString(1, name); // name
-		    pstmt.setString(2, hp); // hp
-		    pstmt.setString(3, company); // company		   
 
 		    int count= pstmt.executeUpdate();	    
 		    		   	    
@@ -121,21 +81,10 @@ public class PhoneDao {
 	}
 	
 	
-	public void personUpdate() {
+	public void personUpdate(PhoneVo pv) {
 		
 		this.getConnection();
-		
-		System.out.println("<3.수정>");
-		System.out.print(">번호: ");
-		int personId= sc.nextInt();
-		sc.nextLine(); // 개행문자
-		System.out.print(">이름: ");
-		String name= sc.nextLine();
-		System.out.print(">휴대전화: ");
-		String hp= sc.nextLine();
-		System.out.print(">회사전화: ");
-		String company= sc.nextLine();
-		
+
 		try {
 			String query= "";
 			query += " update 	person ";
@@ -146,10 +95,10 @@ public class PhoneDao {
 			
 		    pstmt= conn.prepareStatement(query);
 		    
-		    pstmt.setString(1, name);
-		    pstmt.setString(2, hp);
-		    pstmt.setString(3, company);
-		    pstmt.setInt(4, personId);
+		    pstmt.setString(1, pv.getName());
+		    pstmt.setString(2, pv.getHp());
+		    pstmt.setString(3, pv.getCompany());
+		    pstmt.setInt(4, pv.getPersonId());
 		    
 		    int count= pstmt.executeUpdate();
 		    
@@ -162,14 +111,10 @@ public class PhoneDao {
 	}
 	
 	
-	public void personDelete() {
+	public void personDelete(int personId) {
 		
 		this.getConnection();
-		
-		System.out.println("<4.삭제>");
-		System.out.print(">번호: ");
-		int personId= sc.nextInt();
-		
+
 		try {
 			String query= "";
 			query += " delete from person ";
@@ -182,7 +127,6 @@ public class PhoneDao {
 		    int count= pstmt.executeUpdate();
 		    
 		    System.out.println("["+count+"건 삭제되었습니다.]");
-		    
 		    
 		} catch (SQLException e) {
 		    System.out.println("error:" + e);
@@ -217,7 +161,7 @@ public class PhoneDao {
             	PhoneVo vo= new PhoneVo(personId, name, hp, company);
             	pList.add(vo);
             }
-            
+
 		} catch (SQLException e) {
 		    System.out.println("error:" + e);
 		}	
@@ -235,15 +179,10 @@ public class PhoneDao {
 	}
 	
 	
-	public List<PhoneVo> personSearch() {
+	public List<PhoneVo> personSearch(String search) {
 		List<PhoneVo> pList= new ArrayList<PhoneVo>();
 		
 		this.getConnection();
-		
-		sc.nextLine(); // 개행문자
-		System.out.println("<5.검색>");
-		System.out.print(">검색어: ");
-		String search= sc.nextLine();
 		
 		try {
 			String query= "";
@@ -271,7 +210,7 @@ public class PhoneDao {
             	PhoneVo vo= new PhoneVo(personId, name, hp, company);
             	pList.add(vo);
             }
-
+            
             for(PhoneVo pv: pList) {
             	pv.showInfo();
             }

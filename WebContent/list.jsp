@@ -38,6 +38,10 @@
 			<td>회사(company)</td>
 			<td><%=pList.get(i).getCompany()%></td>
 		</tr>
+		<tr>
+			<td></td>
+			<td>[삭제]</td>
+		</tr>
 	</table>
 	<br>
 	<%
